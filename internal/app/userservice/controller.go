@@ -10,7 +10,7 @@ import (
 func (app *Application) GetUsersWithComments(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	us := app.NewUserService()
-	users, err := us.FetchUsers(nil)
+	result, err := us.GetUsersWithComments(nil)
 
 	if err != nil {
 		resp, err := json.Marshal(model.ApiError{Code: http.StatusInternalServerError, Message: err.Error()})
@@ -22,7 +22,7 @@ func (app *Application) GetUsersWithComments(w http.ResponseWriter, r *http.Requ
 		app.HttpResponse(w, http.StatusInternalServerError, resp)
 		return
 	}
-	successResp := model.UsersResponse{Users: users}
+	successResp := model.UsersAndCommentsResponse{Result: result}
 	resp, err := json.Marshal(successResp)
 	if err != nil {
 		log.Printf("ERROR: could not marshal get users success message with error: %v", err)

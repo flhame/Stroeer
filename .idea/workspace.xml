@@ -4,10 +4,10 @@
     <list default="true" id="95404b89-9b3d-4736-ba15-4a0f3c7a1609" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/go_build_main_go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/go_build_main_go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/model/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/comment.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/comment.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/app/userservice/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/userservice/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/userservice/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/userservice/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/userservice/userservice.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/userservice/userservice.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
