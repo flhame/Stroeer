@@ -8,7 +8,7 @@ type User struct {
 	Address  Address `json:"address"`
 	Phone    string  `json:"phone"`
 	Website  string  `json:"website"`
-	Company  Company `json:"website"`
+	Company  Company `json:"company"`
 }
 
 type Address struct {
