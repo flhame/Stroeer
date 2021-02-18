@@ -4,7 +4,7 @@
 ### Following Endpoints are supported:
 #### Getting all users with their comments:
 
-http://localhost:8081/api/v1/users-with-comments?userId=2
+http://localhost:8081/api/v1/users-with-comments
 
 #### Getting single user with its comments:
 http://localhost:8081/api/v1/users-with-comments?userId=1
