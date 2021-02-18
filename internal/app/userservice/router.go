@@ -19,6 +19,7 @@ type Routes []Route
 const (
 	ApiPattern = "/api/v1"
 	UserApiPattern = "/user"
+	UserWithCommentsApiPattern = "/users-with-comments"
 	HealthCheckPattern = "/health"
 )
 
@@ -48,6 +49,12 @@ func (app *Application) routes() Routes {
 			http.MethodGet,
 			fmt.Sprintf("%s%s", ApiPattern, HealthCheckPattern),
 			app.HealthCheck,
+		},
+		Route{
+			"GetUsersWithComments",
+			http.MethodGet,
+			fmt.Sprintf("%s%s", ApiPattern, UserWithCommentsApiPattern),
+			app.GetUsersWithComments,
 		},
 	}
 }

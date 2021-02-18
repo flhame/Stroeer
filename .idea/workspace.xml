@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="95404b89-9b3d-4736-ba15-4a0f3c7a1609" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/userservice/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/userservice/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/app/userservice/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/go_build_main_go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/go_build_main_go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/model/responses.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/model/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/userservice/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/userservice/controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/userservice/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/userservice/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/app/userservice/userservice.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/app/userservice/userservice.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +24,14 @@
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="KubernetesApiPersistence">
     <option name="context" value="onlinewelt" />

@@ -8,6 +8,9 @@ import (
 type Application struct {
 }
 
+type UserService struct {
+}
+
 func (app *Application) Start() {
 	router := app.NewRouter()
 	port := "8081"
