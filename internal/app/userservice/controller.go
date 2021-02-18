@@ -5,12 +5,30 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 func (app *Application) GetUsersWithComments(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	var err error
+	queryParams := r.URL.Query()
+	userId := 0
+	if queryParams.Get("userId") != "" {
+		userId, err = strconv.Atoi(queryParams.Get("userId"))
+		if err != nil {
+			log.Printf("ERROR: could not parse queryParam to int with error: %v", err)
+			resp := model.ApiError{Code: http.StatusInternalServerError, Message: err.Error()}
+			jsonResp, err := json.Marshal(resp)
+			if err != nil {
+				app.HttpResponse(w, http.StatusInternalServerError, []byte("unexpected error"))
+			}
+			app.HttpResponse(w, http.StatusBadRequest, jsonResp)
+			return
+		}
+	}
+
 	us := app.NewUserService()
-	result, err := us.GetUsersWithComments(nil)
+	result, err := us.GetUsersWithComments(&userId)
 
 	if err != nil {
 		resp, err := json.Marshal(model.ApiError{Code: http.StatusInternalServerError, Message: err.Error()})

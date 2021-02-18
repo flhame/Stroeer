@@ -27,11 +27,22 @@ func (us *UserService) GetUsersWithComments(userId *int) ([]model.UserAndComment
 	users := <-userChan
 	comments := <-commentChan
 
-	if users == nil || comments == nil {
-		return nil, errors.New("failed fetching users or comments")
+	if users == nil {
+		return nil, errors.New("failed fetching users")
 	}
 
-	combinations := us.MergeUserAndComments(users, comments)
+	var combinations []model.UserAndComments
+	if comments != nil {
+		combinations = us.MergeUserAndComments(users, comments)
+	} else {
+		log.Print("NOTICE: no comments for user(s) found")
+		for _, user := range users {
+			// set combination without comments, if no comments could be found
+			combination := model.UserAndComments{User: user, Comments: nil}
+			combinations = append(combinations, combination)
+		}
+	}
+
 	return combinations, nil
 }
 
@@ -60,7 +71,7 @@ func (us *UserService) FetchUsers(userId *int, channel chan []model.User) {
 	log.Printf("NOTICE start fetching users")
 	endPoint := UserEndpoint
 	if userId != nil && *userId > 0 {
-		endPoint += fmt.Sprintf("/%d", userId)
+		endPoint += fmt.Sprintf("/%d", *userId)
 	}
 
 	req, err := http.NewRequest(http.MethodGet, endPoint, nil)
@@ -77,8 +88,19 @@ func (us *UserService) FetchUsers(userId *int, channel chan []model.User) {
 		return
 	}
 
-	users := []model.User{}
-	err = json.Unmarshal(resp, &users)
+	var users []model.User
+	if userId != nil && *userId > 0{
+		// single user is requested, so single object will be returned instead of list
+		user := model.User{}
+		err = json.Unmarshal(resp, &user)
+		if err == nil {
+			users = append(users, user)
+		}
+	} else {
+		// all users are requested, so list of obejects is returned
+		err = json.Unmarshal(resp, &users)
+	}
+
 	if err != nil {
 		log.Printf("ERROR: failed to unmarshal response from getting user with err: %v", err)
 		channel <- nil
@@ -94,7 +116,7 @@ func (us *UserService) FetchComments(userId *int, channel chan []model.Comment) 
 
 	endPoint := CommentEndpoint
 	if userId != nil && *userId > 0 {
-		endPoint += fmt.Sprintf("?userId=%d", userId)
+		endPoint += fmt.Sprintf("?userId=%d", *userId)
 	}
 
 	req, err := http.NewRequest(http.MethodGet, endPoint, nil)
