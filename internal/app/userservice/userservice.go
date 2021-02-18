@@ -1,6 +1,7 @@
 package userservice
 
 import (
+	"Strooer/internal/app/model"
 	"log"
 	"net/http"
 )
@@ -8,7 +9,14 @@ import (
 type Application struct {
 }
 
+type UserApi struct {}
+
 type UserService struct {
+	UserConnection interface{
+		FetchUsers(*int, chan []model.User)
+		FetchComments(*int, chan []model.Comment)
+		DoRequest(req *http.Request) ([]byte, error)
+	}
 }
 
 func (app *Application) Start() {

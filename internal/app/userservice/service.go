@@ -20,8 +20,8 @@ func (us *UserService) GetUsersWithComments(userId *int) ([]model.UserAndComment
 	userChan := make(chan []model.User)
 	commentChan := make(chan []model.Comment)
 
-	go us.FetchUsers(userId, userChan)
-	go us.FetchComments(userId, commentChan)
+	go us.UserConnection.FetchUsers(userId, userChan)
+	go us.UserConnection.FetchComments(userId, commentChan)
 
 	// wait for the go routines sending value
 	users := <-userChan
@@ -67,7 +67,7 @@ func (us *UserService) MergeUserAndComments(users []model.User, comments []model
 	return combinations
 }
 
-func (us *UserService) FetchUsers(userId *int, channel chan []model.User) {
+func (api *UserApi) FetchUsers(userId *int, channel chan []model.User) {
 	log.Printf("NOTICE start fetching users")
 	endPoint := UserEndpoint
 	if userId != nil && *userId > 0 {
@@ -81,7 +81,7 @@ func (us *UserService) FetchUsers(userId *int, channel chan []model.User) {
 		return
 	}
 
-	resp, err := us.DoRequest(req)
+	resp, err := api.DoRequest(req)
 	if err != nil {
 		log.Printf("ERROR: could not fetching users with error: %v", err)
 		channel <- nil
@@ -111,7 +111,7 @@ func (us *UserService) FetchUsers(userId *int, channel chan []model.User) {
 	channel <- users
 }
 
-func (us *UserService) FetchComments(userId *int, channel chan []model.Comment) {
+func (api *UserApi) FetchComments(userId *int, channel chan []model.Comment) {
 	log.Printf("NOTICE start fetching comments")
 
 	endPoint := CommentEndpoint
@@ -126,7 +126,7 @@ func (us *UserService) FetchComments(userId *int, channel chan []model.Comment) 
 		return
 	}
 
-	resp, err := us.DoRequest(req)
+	resp, err := api.DoRequest(req)
 	if err != nil {
 		log.Printf("ERROR: could not fetching comments with error: %v", err)
 		channel <- nil
@@ -145,7 +145,7 @@ func (us *UserService) FetchComments(userId *int, channel chan []model.Comment) 
 	channel <- comments
 }
 
-func (us *UserService) DoRequest(req *http.Request) ([]byte, error) {
+func (api *UserApi) DoRequest(req *http.Request) ([]byte, error) {
 	requestDump, _ := httputil.DumpRequest(req, true)
 	log.Println(string(requestDump))
 
@@ -168,5 +168,7 @@ func (us *UserService) DoRequest(req *http.Request) ([]byte, error) {
 }
 
 func (app *Application) NewUserService() *UserService {
-	return &UserService{}
+	return &UserService{
+		UserConnection: &UserApi{},
+	}
 }
